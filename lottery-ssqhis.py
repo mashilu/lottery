@@ -12,6 +12,7 @@ class MyHTMLParser(HTMLParser):
 		HTMLParser.__init__(self)
 		self.is_redspan = ""
 		self.is_bluespan = ""
+		self.is_serialspan = ""
 		self.balls = []
 
 	def handle_starttag(self, tag, attrs):
@@ -20,6 +21,8 @@ class MyHTMLParser(HTMLParser):
 				self.is_redspan = 1
 			if attrs[0][0] == "class" and attrs[0][1] == "STYLE12":
 				self.is_bluespan = 1
+			if attrs[0][0] == "class" and attrs[0][1] == "end":
+				self.is_serialspan = 1
 
 	def handle_endtag(self, tag):
 		if tag == "span":
@@ -27,25 +30,33 @@ class MyHTMLParser(HTMLParser):
 				self.is_redspan = ""
 			if self.is_bluespan == 1:
 				self.is_bluespan = ""
+			if self.is_serialspan == 1:
+				self.is_serialspan = ""
 
 	def handle_data(self, data):
-		if self.is_redspan == 1:
+		if self.is_serialspan == 1:
 			self.balls.append(data)
+		if self.is_redspan == 1:
+			for redball in data.split():
+				self.balls.append(redball)
 		if self.is_bluespan == 1:
 			self.balls.append(data)
 
+
 if __name__ == "__main__":
-	content = urllib.request.urlopen("http://www.3dcp.cn/zs/gonggao.php?type=ssq&year=2016").read()
-	ball = MyHTMLParser()
-	ball.feed(content.decode("GB2312"))
-	fp = open("old2016.txt", "w")
+	fp = open("ssq_his.txt", "w")
+	base_url = "http://www.3dcp.cn/zs/gonggao.php?type=ssq&year="
 
-	for i in range(0, len(ball.balls)):
-		print(i, ball.balls[i])
-		fp.write(str(ball.balls[i]))
-		if (i + 1) % 2 == 0:
-			fp.write("\n")
-		##else:
-		##	//fp.write(" ")
+	for url in [base_url + str(x) for x in range(2003, 2017, 1)]:
+		content = urllib.request.urlopen(url).read()
+		ball = MyHTMLParser()
+		ball.feed(content.decode("GB2312"))
+		for i in range(0, len(ball.balls)):
+			fp.write(str(ball.balls[i]))
+			if (i + 1) % 8 == 0:
+				fp.write("\n")
+			else:
+				fp.write(" ")
 
+	fp.close()
 	ball.close()
