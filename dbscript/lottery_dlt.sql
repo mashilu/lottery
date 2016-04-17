@@ -28,8 +28,8 @@ create table dltCombination (
 );
 
 create table dltHistory (
-  id int NOT NULL,
-
+	id int NOT NULL,
+	no char(7) NOT NULL,
 	red1 char(2) NOT NULL,
 	red2 char(2) NOT NULL,
 	red3 char(2) NOT NULL,
@@ -52,7 +52,7 @@ create table dltHistory (
 	blueOddCnt char(1),     # 蓝球奇数个数
 	blueEvenCnt char(1),    # 蓝球偶数个数
 	blueSpan char(2),       # 蓝球跨度
-	blueSerial2Cnt char(1),      # 蓝球两连环个数
+	blueSerial2Cnt char(1), # 蓝球两连环个数
 	blueDirect1Cnt char(1), # 蓝球1区个数(1-6)
 	blueDirect2Cnt char(2)  # 蓝球2区个数(6-12)
 );
