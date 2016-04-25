@@ -7,8 +7,7 @@ from htmlparser.SsqHtmlParser import SsqHTMLParser
 
 
 def truncate_table(dbconn, table_name):
-	sql = "truncate table " + table_name
-	dbconn.exe_sql(sql)
+	dbconn.exe_truncate(table_name)
 
 
 def save_data(dbconn, result):

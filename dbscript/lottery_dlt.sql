@@ -1,4 +1,4 @@
-create table dltCombination (
+create table dltAll (
   id int NOT NULL,
 	red1 char(2) NOT NULL,
 	red2 char(2) NOT NULL,
@@ -28,7 +28,7 @@ create table dltCombination (
 );
 
 create table dltHistory (
-	id int NOT NULL,
+	id int,
 	no char(7) NOT NULL,
 	red1 char(2) NOT NULL,
 	red2 char(2) NOT NULL,
