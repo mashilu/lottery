@@ -1,4 +1,5 @@
-create table LotteryCombination (
+create table ssqCombination (
+	id int NOT NULL,
 	red1 char(2) NOT NULL,
 	red2 char(2) NOT NULL,
 	red3 char(2) NOT NULL,

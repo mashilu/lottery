@@ -21,7 +21,7 @@ class MySqlDb:
 		self.conn.commit()
 
 	def exe_truncate(self, table_name):
-		self.curr.execute("truncate table" + table_name)
+		self.curr.execute("truncate table " + table_name)
 
 	def fetch_one(self):
 		return self.curr.fetchone()
